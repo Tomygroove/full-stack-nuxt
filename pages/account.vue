@@ -4,11 +4,20 @@
         <div class="message__error text-center" v-if="!isLogged">
             <p>Vous n'êtes pas connecté</p>
         </div>
-        <div class="user__content text-center" v-else>
-            <p>Nom: {{user.firstName}}</p>
-            <p>Prénom : {{user.lastName}}</p>
-            <p>Email: {{user.email}}</p>
-            <p>Age: {{user.age}}</p>
+        <div v-else>
+            <div class="user__content text-center">
+                <p>Nom: {{user.firstName}}</p>
+                <p>Prénom : {{user.lastName}}</p>
+                <p>Email: {{user.email}}</p>
+                <p>Phone: {{user.phone}}</p>
+                <p>Address: {{user.address}}</p>
+            </div>
+            <router-link to="update-account" class="font-medium text-indigo-600 hover:text-indigo-500">
+                        Update my informations
+            </router-link>
+            <router-link to="history-order" class="font-medium text-indigo-600 hover:text-indigo-500">
+                        My history order
+            </router-link>
             <div class="logout__wrapper">
                 <button @click="logout">Se déconnecter</button>
             </div>
@@ -30,6 +39,7 @@
                 user:{}
             }
         },
+        middleware:"auth",
         methods: {
             logout: function() {
                 localStorage.removeItem('token');
@@ -39,8 +49,8 @@
         beforeMount() {
             const token =  localStorage.getItem('token');
             if(token) {
-                const jwtDecoded = VueJwtDecode.decode(token);
-                this.$getUser(jwtDecoded.id,token)
+                const jwtDecoded = this.$decodeJwt(token);
+                this.$getUser(jwtDecoded._id,token)
                 .then(data => {
                     console.log(data);
                     this.isLogged = true;

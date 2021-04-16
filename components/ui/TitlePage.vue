@@ -1,6 +1,6 @@
 <template>
     <div class="title__page my-5">
-        <h1 class="text-center text-5xl uppercase font-semibold text-teal-900">{{titleText}}</h1>
+        <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900">{{titleText}}</h1>
     </div>
 </template>
 

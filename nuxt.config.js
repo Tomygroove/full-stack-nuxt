@@ -15,7 +15,7 @@ export default {
     ]
   },
 
-  serverMiddmeware:['~/middleware/send-email.js'],
+  serverMiddleware:['~/api/send-email.js'],
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
@@ -38,7 +38,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    "@nuxtjs/apollo"
+    "@nuxtjs/apollo",
+    "@nuxt/http"
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -47,6 +48,7 @@ export default {
       config.node = {
         fs:'empty',
         net:'empty',
+        express: 'empty'
       }
     }
   },

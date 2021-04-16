@@ -11,26 +11,27 @@
 
 <script>
     import Product from "../../apollo/queries/product.gql";
-
+    
     export default {
-        components: {
-            TitlePage
-        },
-        data: function() {
+        data:function() {
             return {
                 product:{}
             }
         },
         apollo: {
             product: {
-                query: Product, 
+                query: Product,
                 variables() {
                     return {
                         id: this.$route.params.id
                     }
                 },
                 update(data) {
+                    console.log(data);
                     return data.product;
+                },
+                error() {
+                    return this.$root.error({'statusCode':500, message: "id not found"})
                 }
             }
         }

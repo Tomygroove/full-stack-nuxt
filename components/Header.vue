@@ -3,7 +3,7 @@
         <nav class="header__nav">
             <ul class="nav__wrapper">
                 <li class="nav__item">
-                    <NuxtLink to="/" class="nav__link">
+                    <NuxtLink to="/home" class="nav__link">
                         Home
                     </NuxtLink>
                 </li>
@@ -22,15 +22,20 @@
                         Contact
                     </NuxtLink>
                 </li>
-                <li class="nav__item">
-                    <NuxtLink to="/account" class="nav__link">
-                        Mon compte
-                    </NuxtLink>
-                </li>
+                
                 <li class="nav__item">
                     <NuxtLink to="/login" class="nav__link">
                         Login
                     </NuxtLink>
+                </li>
+
+                <li class="nav__item">
+                    <NuxtLink to="/account" class="nav__link">
+                        Mon compte
+                    </NuxtLink>
+                    <!-- <NuxtLink to="/login" class="nav__link">
+                        Logout
+                    </NuxtLink> -->
                 </li>
             </ul>
         </nav> 
@@ -38,8 +43,10 @@
 </template>
 
 <script>
+import VueJwtDecode from "vue-jwt-decode";
+import {mapGetters} from 'vuex'
+
     export default {
-        
     }
 </script>
 

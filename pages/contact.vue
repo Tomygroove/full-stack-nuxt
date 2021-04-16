@@ -1,78 +1,68 @@
 <template>
-    <div class="page__contact">
-        <TitlePage titleText="Contact"/>
-
-        <form class="form__contact w-1/3 mx-auto">
-    
-            <div class="form__group">
-                <label class="block text-sm font-medium text-gray-700">Nom</label>
-                <input class="border-2 rounded-sm my-1 h-10 w-full" type="name" v-model="name" name="name"/>
-            </div>
-
-            <div class="form__group">
-                <label class="block text-sm font-medium text-gray-700">Adresse email</label>
-                <input class="border-2 rounded-sm my-1 h-10 w-full" type="email" v-model="email" name="email"/>
-            </div>
-            
-            <div class="form__group">
-                <label class="block text-sm font-medium text-gray-700">Objet</label>
-                <input class="border-2 rounded-sm my-1 h-10 w-full" type="subject" v-model="subject" name="subject"/>
-            </div>
-
-            <div class="form__group">
-                <label class="block text-sm font-medium text-gray-700">Message</label>
-                <textarea class="border-2 rounded-sm my-1 w-full" cols="30" rows="10" type="message" v-model="message" name="message"/>
-            </div>
-
-            <div class="form__group">
-                <button type="submit" @click.prevent="sendEmail">Envoyer</button>
-            </div>
-            <!-- <div class="success__message">
-                {{successMessage}}
-            </div> -->
-        </form>
-    </div>
+  <div>
+    <h1>Page contact</h1>
+    <form class="contact__form">
+      <div class="form__group">
+        <label htmlFor="firstName">FirstName</label>
+        <input type="text" v-model="firstName" />
+      </div>
+      <div class="form__group">
+        <label htmlFor="email">Email</label>
+        <input type="email" v-model="email" />
+      </div>
+      <div class="form__group">
+        <label htmlFor="subject">Subject</label>
+        <input type="text" v-model="subject" />
+      </div>
+      <div class="form__group">
+        <label htmlFor="message">message</label>
+        <textarea cols="30" rows="10" v-model="message"></textarea>
+      </div>
+      <div class="form__group">
+        <button type="button" @click.prevent="sendMail">Envoyer</button>
+      </div>
+      <div class="success__message" v-if="successMessage">
+        {{successMessage}}
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
-    import TitlePage from "../components/ui/TitlePage";
-
-    export default {
-        components: {
-            TitlePage
-        },
-        data: function () {
-            return {
-                name:"",
-                email:"",
-                subject:"",
-                message:"",
-            };
-        },
-        methods: {
-            
-            sendEmail: function() {
-                console.log(this.name, this.message, this.subject, this.email);
-                fetch('/middleware/send-email', {
-                    method: "POST",
-                    headers: {
-                        "Content-type":"application/json"
-                    },
-                    body: JSON.stringify({
-                        name: this.name,
-                        message: this.message,
-                        subject: this.subject,
-                        email: this.email,
-                    })
-                })
-                .then(res=>res.json())
-                .then(data=>console.log(data))
-                .catch(err=>console.log(err))
-            }
-        }
+export default {
+  data: function() {
+    return {
+      firstName: "",
+      message: "",
+      subject: "",
+      email: "",
+      successMessage:""
+    };
+  },
+  methods: {
+    sendMail: function() {
+      console.log(this.firstName, this.message, this.subject, this.email);
+        fetch('/api/send-email', {
+          method: "POST",
+          headers: {
+            "Content-type":"application/json"
+          },
+          body: JSON.stringify({
+            firstName: this.firstName,
+            email: this.email,
+            subject:this.subject,
+            message: this.message
+          })
+        }) 
+        .then(res=>res.json())
+        .then(data=>{
+          console.log(data);
+          this.successMessage=data.message
+          })
+        .catch(err => console.log(err))
     }
+  }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,8 +1,8 @@
-query Product($id: ID!) {
-  product(id: $id) {
-    id
-    title
+query Products {
+  products {
     price
     description
+    id
+    title
   }
 }
