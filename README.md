@@ -1,5 +1,9 @@
 # front-app
 
+Orard Thomas
+
+https://full-stack-nuxt.herokuapp.com/home
+
 ## Build Setup
 
 ```bash
